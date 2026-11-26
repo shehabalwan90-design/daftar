@@ -11,6 +11,12 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
 
 if (import.meta.env.PROD && 'serviceWorker' in navigator) {
   window.addEventListener('load', () => {
+    let refreshing = false
+    navigator.serviceWorker.addEventListener('controllerchange', () => {
+      if (refreshing) return
+      refreshing = true
+      window.location.reload()
+    })
     void navigator.serviceWorker.register('/sw.js').catch(error => {
       console.error('Service worker registration failed', error)
     })
