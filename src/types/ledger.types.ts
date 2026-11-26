@@ -1,4 +1,4 @@
-export type ShopType = 'grocery' | 'pharmacy' | 'clothing' | 'mobile' | 'building' | 'produce' | 'other'
+export type ShopType = 'grocery' | 'pharmacy' | 'hospital' | 'cafeteria' | 'clothing' | 'mobile' | 'building' | 'produce' | 'other'
 export type CycleFrequency = 'weekly' | 'monthly'
 export type TransactionType = 'debt' | 'payment'
 export type AppTab = 'home' | 'customers' | 'products' | 'collections' | 'portal' | 'settings'
@@ -84,9 +84,13 @@ export interface ShopData {
 }
 
 export interface VoiceParseResult {
+  action: 'record' | 'deduct' | 'balance' | 'unknown'
   customerName: string
+  customerMatches: string[]
   type: TransactionType
   items: Array<{ name: string; qty: number }>
   amount?: number
   unclear: boolean
+  explicitCustomer: boolean
+  learnedAlias?: string
 }
